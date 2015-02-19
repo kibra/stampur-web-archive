@@ -1,0 +1,26 @@
+{% for message in message_array %}
+    <div id="messageBox{{message.id}}" class="msgBox msgColor0">
+        <div class="votes">
+            <div class="uparrow"><a id="uplink{{message.id}}" onclick="upvote('{{message.id}}',{{'false' if message.uped else 'true'}});"><img id="uparrow{{message.id}}" src="/static/imgs/up{%- if message.uped -%}ed{% endif %}.png" /> </a></div>
+            <div class="numofvotes" id="score{{message.id}}" style="text-align:center;">{{message.score}}</div>
+            <div class="downarrow"><a id="downlink{{message.id}}" onclick="downvote('{{message.id}}',{{'false' if message.downed else 'true'}});"><img id="downarrow{{message.id}}" src="/static/imgs/down{%- if message.downed -%}ed{% endif %}.png" /> </a></div>
+        </div>
+        <div id="message{{message.id}}" class="messagetext">
+            <div class="msgTopline"><a href="/message/{{message.id}}" onclick="return false;"><span onclick="showFullMessage('{{message.id}}')" class="subject_preview">{{message.title|e}}</span></a><span style="color:gray"> - {{message.formatted_timestamp}}</span></div>
+            <div id="messageBody{{message.id}}" class="msgBody">{{message.body[0:180]|e}}</div>
+        </div>
+        <div class="preview_images_div">
+			{% for photo in message.photos %}
+			<a href="/media/{{photo}}">
+				<img style="margin-left:20px" class="thumb" src="/media/thumbs/{{photo}}" />
+			</a>
+			{% endfor %}
+        </div>
+        <div class="msgFooter"><a href="/message/{{message.id}}" style="color:#666" onclick="showFullMessage('{{message.id}}');return false;"> {{message.num_replies}} comment(s)</a></div>
+        <div class="stampsPrevDiv">
+			{% for stamp in message.stamps %}
+				{% include 'small_stamp' %}
+			{% endfor %}
+        </div>
+    </div>
+{% endfor %} 

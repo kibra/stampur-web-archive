@@ -1,0 +1,6 @@
+<div class="stamp_in_prev">
+	<div class="tag_content {{stamp.type}}_stamp">{{stamp.label}}</div>
+	<a href="/s/{{stamp.label}}" onclick="return false;">
+		<img class="stamp_background_messages trigger" onclick="view_stamp('{{stamp.label}}',1);" src="/static/imgs/{{stamp.stamp_image}}.png" />
+	</a>
+</div>

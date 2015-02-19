@@ -1,0 +1,95 @@
+<div class="msgBoxSingle">
+	<div class="votes">
+		<div class="uparrow">		
+			<a id="uplink{{id}}" onclick="upvote('{{id}}',{{'false' if uped else 'true'}});">
+				<img id="uparrow{{id}}" src="/static/imgs/up{%- if uped -%}ed{% endif %}.png"/> 
+			</a>
+		</div>
+		<div class="numofvotes" id="score{{id}}">{{score}}</div>
+		<div class="downarrow">
+			<a id="downlink{{id}}" onclick="downvote('{{id}}',{{'false' if downed else 'true'}});">
+				<img id="downarrow{{id}}" src="/static/imgs/down{%- if downed -%}ed{% endif %}.png"/>
+			</a>
+		</div>
+	</div> 
+			   
+	<div class="full_message_text">
+		<h4 style="color:#800400;margin:0px;margin-bottom:5px;">{{subject}}</h4>
+		<div id="msgSpace">{{body.replace('\n', '<br>')}}</div>
+	</div>
+
+	
+
+	<br style="clear:both">
+	<div id="full_images_div">
+		{% for photo in photos  %}
+			<a href="/media/{{photo}}"/>
+				<img class="big_thumb" src="//media.stampur.com/image/thumb/{{photo}}"/>
+			</a>
+		{% endfor %} 
+	</div>
+
+    <div id="tag_in_bin_holder">
+		{% for stamp in stamps  %}
+			<div class="stamp_in_prev bubbleInfo trigger">
+				<div class="tag_content">{{stamp.label}}</div>
+				<img class="stamp_background_messages trigger" onclick="view_stamp('{{stamp.label}}',1);" src="/static/imgs/general_stamp_bkground.png"></img>
+				<div id="dpop" class="popup">
+					<div class="popup-contents">
+						<div class="stampname">{{stamp.label}}</div>
+						<div class="stampdiscription">{{stamp.description}}</div>
+						<br>
+						<div class="small_button blue_button" onclick="view_stamp('{{stamp.label}}',1);" onmousedown="push(this);" onmouseup="unpush(this);" onmouseout="unpush(this);" style="margin-right:0px;">View stamp</div>
+						{% if stamp.in_stampbook %}
+						<div class="small_button red_button" onclick="remove_stamp('{{stamp.label}}',this );" onmousedown="push(this);" onmouseup="unpush(this);" onmouseout="unpush(this);" style="margin-right:0px;float:right;"> - stampbook</div>
+						{% else %}
+						<div class="small_button green_button" onclick="add_stamp('{{stamp.label}}',this );" onmousedown="push(this);" onmouseup="unpush(this);" onmouseout="unpush(this);" style="margin-right:0px;float:right;"> + stampbook</div>
+						{% endif %}
+						<div class="arrow">
+							<img src="http://stampur.com/static/imgs/brushedmetaltile-arrow.png"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}  		
+	</div>
+
+	<div id="responseBox">
+		<span style="font-size:12px;">Comment:</span>
+		<form id="comment_submit" style="margin-bottom:15px;" action="javascript:comment_form('{{id}}')">
+			<textarea id="add_reply" onclick="set_box_here(this);" cols=47 rows=6 > </textarea>
+			<div style="float: right;font-size:14px;display:inline-block;width:220px;height:180px;" >
+				<input type="radio" name="comment_type" id="public_comment" value="public" checked />
+				<span style="margin:5px;padding-left:1px;">Public commment</span>
+				<br>
+				<input style="margin-top:10px;" type="radio" name="comment_type" value="private"/>
+				<div style="margin:5px;margin-left:18px;margin-top:-16px;display:inline-block;">Start a private comment thread with <b>the author</b></div>
+				<br>
+			</div>
+			<br>
+			<input style="margin:5px;" id="notanonymous" type="checkbox" checked="checked" name="signature">
+				<span style="font-size:14px;margin:5px;">Sign with my username</span>
+			</input>
+			<input type="submit" style="float:right;margin:5px;margin-right:5px;"/>
+		</form>
+	</div>
+</div>
+
+            
+                
+<div id="comment_box">
+	<div id="private_comments">
+		<span>{{private_comments|length}} private comment threads:</span>
+		{% for comment in private_comments  %}
+			<span>The following thread is just between you and {{comment.private_with}}</span>
+			{% include 'comment' %}
+		{% endfor %}
+	</div>
+
+	<div id="public_comments">
+		<span>{{num_replies}} public comments:</span>
+		{% for comment in comments  %}
+			{% include 'comment' %}
+		{% endfor %}
+	</div>
+</div>

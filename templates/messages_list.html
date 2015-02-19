@@ -1,0 +1,35 @@
+{% for message in messages_array %}
+    <div id="messageBox<TMPL_var message.id>" class="msgBox msgColor0">
+        <div class="votes">
+            <div class="uparrow"><a id="uplink<TMPL_var message.id>" onclick="upvote('<TMPL_var message.id>',false);"><img id="uparrow<TMPL_var message.id>" src="/static/imgs/uped.png" /> </a></div>
+            <div class="numofvotes" id="score<TMPL_var message.id>" style="text-align:center;">4</div>
+            <div class="downarrow"><a id="downlink<TMPL_var message.id>" onclick="downvote('<TMPL_var message.id>',true);"><img id="downarrow<TMPL_var message.id>" src="/static/imgs/down.png" /> </a></div>
+        </div>
+        <div id="message<TMPL_var message.id>" class="messagetext">
+            <div class="msgTopline"><a href="/message/<TMPL_var message.id>" onclick="return false;"><span onclick="showFullMessage('<TMPL_var message.id>')" class="subject_preview"><TMPL_var message.subject></span></a><span style="color:gray"> - <TMPL_var message.formatted_date></span></div>
+            <div id="messageBody<TMPL_var message.id>" class="msgBody">Isla Vista Man Missing<br />updated: Feb 16, 2012, 4:47 PM <br />Source: Santa Barbara County Sheriff's Office<br /><br />The Santa Barbara Sheriff's Office is seeking the public's help in locating a ...</div>
+        </div>
+        <div class="preview_images_div">
+			<a href="/media/eb8ccd02-3fe9-4a16-883e-3e60be0f7661.JPG"><img style="margin-left:20px" class="thumb" src="/media/thumbs/eb8ccd02-3fe9-4a16-883e-3e60be0f7661.JPG" /></a>
+        </div>
+        <div class="msgFooter"><a href="/message/<TMPL_var message.id>" style="color:#666" onclick="showFullMessage('<TMPL_var message.id>');return false;"> 2 comment(s)</a></div>
+        <div class="stampsPrevDiv">
+			<TMPL_foreach message.stamps as stamp>
+				<div class="stamp_in_prev bubbleInfo trigger">
+					<div class="tag_content">UCSB</div>
+					<a href="/s/UCSB" onclick="return false;"><img class="stamp_background_messages trigger" onclick="view_stamp('UCSB',1);" src="/static/imgs/general_stamp_bkground.png" /></a>
+					<div id="dpop" class="popup" style="opacity: 0; ">
+						<div class="popup-contents">
+							<div class="stampname">UCSB - 96 users</div>
+							<div class="stampdiscription">go gauchos! </div>
+							<br />
+							<div class="small_button blue_button" onclick="view_stamp('UCSB',1);" onmousedown="push(this);" onmouseup="unpush(this);" onmouseout="unpush(this);">View stamp</div>
+							<div class="small_button red_button" onclick="remove_stamp('4dc1d0807392d25ac8000000',this, true);" onmousedown="push(this);" onmouseup="unpush(this);" onmouseout="unpush(this);" style="margin-right:0px;float:right;">Remove from stampbook</div>
+							<div class="arrow"><img src="http://stampur.com/static/imgs/brushedmetaltile-arrow.png" /></div>
+						</div>
+					</div>
+				</div>
+			</TMPL_foreach>
+        </div>
+    </div>
+{% endfor %}

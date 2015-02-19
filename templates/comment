@@ -1,0 +1,18 @@
+<div class="comment_div">
+	<div class="reply_topline">
+		{% if comment.author %}
+		<a onclick="view_stamp('{{comment.author}}; return false;" href="/s/{{comment.author}}">{{comment.author}}</a>
+		{% else %}
+		anonymous
+		{% endif %}
+	</div>
+	{{comment.body}}
+	<div class="reply_bottomline">{{comment.date}}
+		<span style="margin:3px;"> - </span><a style="color:#36C;" onclick="threaded_reply(this, '{{id}}', '{{comment.id}}');">reply</a>
+	</div>
+</div>
+<div style="margin-left:30px;">
+	{% for comment in comment.comments %}
+		{% include 'comment' %}
+	{% endfor %}
+</div>
